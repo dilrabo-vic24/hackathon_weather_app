@@ -152,10 +152,12 @@ class _TodayWeatherScreenState extends State<TodayWeatherScreen>
                         )}, ${weatherProvider.findMonth(dataTime: data.current!.lastUpdatedEpoch.toString())}",
                         fontSize: 18.sp,
                         textColor: Colors.grey),
-                    MainTodayWeather(
-                      imageUrl: data.current!.condition!.icon!,
-                      tempC: data.current!.tempC.toString(),
-                      condition: data.current!.condition!.text.toString(),
+                    FittedBox(
+                      child: MainTodayWeather(
+                        imageUrl: data.current!.condition!.icon!,
+                        tempC: data.current!.tempC.toString(),
+                        condition: data.current!.condition!.text.toString(),
+                      ),
                     ),
                     ExtraDataWidget(
                         iconUrl: AppIcons.rainfallIcon,
@@ -193,13 +195,13 @@ class _TodayWeatherScreenState extends State<TodayWeatherScreen>
                             )),
                         TextButton(
                             onPressed: () {
-                              context.push(
-                                WeeklyWeatherScreen.path,
-                              );
                               weatherProvider.getWeeklyWeatherByCityName(
                                   cityName: cityController.text.trim().isEmpty
                                       ? "Seoul"
                                       : cityController.text.trim());
+                              context.push(
+                                WeeklyWeatherScreen.path,
+                              );
                             },
                             child: Column(
                               children: [
