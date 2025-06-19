@@ -22,20 +22,17 @@ class WeeklyWeatherScreen extends StatelessWidget {
             weatherProvider.weatherDataWeekly.forecast!.forecastday![1].day;
         final weeklyData = weatherProvider.weatherDataWeekly.forecast!;
         if (weatherProvider.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
         return Scaffold(
           body: Container(
             decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                  AppColors.gradientColor1,
-                  AppColors.gradientColor2,
-                ])),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [AppColors.gradientColor1, AppColors.gradientColor2],
+              ),
+            ),
             child: Padding(
               padding: EdgeInsets.all(20.r),
               child: Column(
@@ -43,11 +40,12 @@ class WeeklyWeatherScreen extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {
-                            context.go(TodayWeatherScreen.path);
-                          },
-                          icon: Icon(Icons.arrow_back_ios_new)),
-                      customTextStyle(text: "Next 7 Days")
+                        onPressed: () {
+                          context.go(TodayWeatherScreen.path);
+                        },
+                        icon: Icon(Icons.arrow_back_ios_new),
+                      ),
+                      customTextStyle(text: "Next 7 Days"),
                     ],
                   ),
                   TomorrowWidget(
@@ -58,20 +56,25 @@ class WeeklyWeatherScreen extends StatelessWidget {
                     rainfall: tomorrowData.dailyWillItRain.toString(),
                   ),
                   Expanded(
-                      child: ListView.builder(
-                    itemCount: 7,
-                    itemBuilder: (context, index) {
-                      return DailyWeatherWidget(
-                        iconUrl: weeklyData
-                            .forecastday![index].day!.condition!.icon!,
-                        tempC: weeklyData.forecastday![index].day!.avgtempC
-                            .toString(),
-                        weekDay: weatherProvider.getWeekdayName(
-                            dateStr:
-                                weeklyData.forecastday![index].date.toString()),
-                      );
-                    },
-                  ))
+                    child: ListView.builder(
+                      itemCount: weeklyData.forecastday?.length,
+                      itemBuilder: (context, index) {
+                        return DailyWeatherWidget(
+                          iconUrl: weeklyData
+                              .forecastday![index]
+                              .day!
+                              .condition!
+                              .icon!,
+                          tempC: weeklyData.forecastday![index].day!.avgtempC
+                              .toString(),
+                          weekDay: weatherProvider.getWeekdayName(
+                            dateStr: weeklyData.forecastday![index].date
+                                .toString(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -12,22 +12,21 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // const MyApp({super.key});
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       ensureScreenSize: true,
-      // minTextAdapt: true,
       child: MaterialApp.router(
-        title: 'Flutter Demo',
+        title: 'Weather App',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        // home: TodayWeatherScreen(),
         routerConfig: router,
       ),
     );
